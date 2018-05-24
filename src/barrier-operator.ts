@@ -2,6 +2,23 @@ import { format } from "util";
 import { logger } from "./logger";
 import { Barrier } from "./barrier";
 
+async function wait(barrier: Barrier) {
+    if (barrier.isBlock() == false) {
+        return
+    }
+
+    for (; ;) {
+        await new Promise(resolve => {
+            setTimeout(() => {
+                resolve()
+            }, barrier.computeBlockTimeInMills())
+        })
+        if (!barrier.isBlock()) {
+            break
+        }
+    }
+}
+
 function and(...barriers: Barrier[]) {
     barriers = barriers.filter(it => it != null)
     if (barriers == null || barriers.length == 0) {
@@ -75,5 +92,5 @@ function or(...barriers: Barrier[]) {
 }
 
 export {
-    and, or
+    and, or, wait
 }
