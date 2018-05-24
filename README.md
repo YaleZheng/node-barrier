@@ -15,7 +15,7 @@ Barrier to block you operation
 ## How To Install
 
 ```shell
-yarn add node-barrier@0.2.0
+yarn add node-barrier@0.3.0
 ```
 
 ## Dependencies
