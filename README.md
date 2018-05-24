@@ -2,7 +2,7 @@
 
 ## Intro
 
-Barrier for block you operation
+Barrier to block you operation
 
 ## Author
 
@@ -10,7 +10,7 @@ Barrier for block you operation
 
 ## Latest Version
 
-> 0.2.0
+> 0.3.0
 
 ## How To Install
 
@@ -38,15 +38,14 @@ Example for BarrierInterval
 ```javascript
 const { Barrier, BarrierFactory, BarrierOperator } = require('node-barrier')
 
-// create barrier to limit operation count to 10 per second
+// create barrier to block operation count to 10 per second
 const barrier = BarrierFactory.makeBarrierInterval({
             cleanIntervalInMills: 1000,
             maxCount: 10
         })
 
+await BarrierOperator.wait(barrier)
 barrier.increaseCounter()
-const blockTime = barrier.computeBlockTimeInMills()
-await sleep(blockTime)
 // perform you operation
 
 ```
@@ -56,7 +55,7 @@ Example for BarrierAnd
 ```javascript
 const { Barrier, BarrierFactory, BarrierOperator } = require('node-barrier')
 
-// create barrier to limit operation count to 10 per second
+// create barrier to block operation count to 10 per second
 const barrier1 = BarrierFactory.makeBarrierInterval({
             cleanIntervalInMills: 1000,
             maxCount: 10
@@ -67,9 +66,9 @@ const barrier2 = BarrierFactory.makeBarrierInterval({
         })
 const barrier = BarrierOperator.and(barrier1, barrier2)
 
-barrier.increaseCounter()
 const blockTime = barrier.computeBlockTimeInMills()
-await sleep(blockTime)
+await BarrierOperator.wait(barrier)
+barrier.increaseCounter()
 // perform you operation
 
 ```
@@ -79,7 +78,7 @@ Example for BarrierOr
 ```javascript
 const { Barrier, BarrierFactory, BarrierOperator } = require('node-barrier')
 
-// create barrier to limit operation count to 10 per second
+// create barrier to block operation count to 10 per second
 const barrier1 = BarrierFactory.makeBarrierInterval({
             cleanIntervalInMills: 1000,
             maxCount: 10
@@ -90,9 +89,8 @@ const barrier2 = BarrierFactory.makeBarrierInterval({
         })
 const barrier = BarrierOperator.or(barrier1, barrier2)
 
+await BarrierOperator.wait(barrier)
 barrier.increaseCounter()
-const blockTime = barrier.computeBlockTimeInMills()
-await sleep(blockTime)
 // perform you operation
 
 ```
