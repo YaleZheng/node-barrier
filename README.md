@@ -10,12 +10,12 @@ Barrier to block you operation
 
 ## Latest Version
 
-> 0.3.0
+> 0.4.0
 
 ## How To Install
 
 ```shell
-yarn add node-barrier@0.3.0
+yarn add node-barrier@0.4.0
 ```
 
 ## Dependencies
