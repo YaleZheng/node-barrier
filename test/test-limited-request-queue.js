@@ -25,7 +25,7 @@ function sleepAsync(timeInMills) {
     })
 }
 
-describe('barrier-factor', () => {
+describe('barrier-factory', () => {
     const logger = log4js.getLogger()
 
     /** @type {Barrier} */
@@ -101,6 +101,24 @@ describe('barrier-operator', () => {
 
         aliveBarrier = BarrierOperator.or(...[])
         expect(aliveBarrier).to.be.null
+    })
+
+    it('should success to wait', async () => {
+        aliveBarrier = BarrierFactory.makeBarrierInterval({
+            cleanIntervalInMills: 3000,
+            maxCount: 1
+        })
+        expect(aliveBarrier.isBlock(), 'isBlock').to.be.false
+        expect(aliveBarrier.computeBlockTimeInMills(), 'blockTime').to.eq(0)
+
+        aliveBarrier.increaseCounter()
+
+        expect(aliveBarrier.isBlock(), 'isBlock').to.be.true
+        expect(aliveBarrier.computeBlockTimeInMills(), 'blockTime').to.gt(0).and.lte(3000)
+
+        await BarrierOperator.wait(aliveBarrier)
+        expect(aliveBarrier.isBlock(), 'isBlock').to.be.false
+        expect(aliveBarrier.computeBlockTimeInMills(), 'blockTime').to.eq(0)
     })
 
     it('should success to block with and', async () => {
