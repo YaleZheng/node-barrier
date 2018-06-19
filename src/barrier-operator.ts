@@ -30,7 +30,7 @@ function and(...barriers: Barrier[]) {
     barriers.forEach(sub => barrier.addSubBarrier(sub))
 
     barrier._desc = format('[type: %s subBarrierCount: %d]', 'and', barrier._subBarriers.length)
-    logger.debug('start to make barrier: %s', barrier.toString())
+    logger.info('start to make barrier: %s', barrier.toString())
 
     barrier._isBlockFunc = (counter) => {
         for (const subBarrier of barrier._subBarriers) {
@@ -50,7 +50,7 @@ function and(...barriers: Barrier[]) {
             }, 0)
     }
 
-    logger.debug('end to make barrier: %s', barrier.toString())
+    logger.info('end to make barrier: %s', barrier.toString())
 
     return barrier
 }
@@ -67,7 +67,7 @@ function or(...barriers: Barrier[]) {
     barriers.forEach(sub => barrier.addSubBarrier(sub))
 
     barrier._desc = format('[type: %s subBarrierCount: %d]', 'or', barrier._subBarriers.length)
-    logger.debug('start to make barrier: %s', barrier.toString())
+    logger.info('start to make barrier: %s', barrier.toString())
     barrier._isBlockFunc = (counter) => {
         for (const subBarrier of barrier._subBarriers) {
             if (subBarrier.isBlock() == false) {
@@ -86,7 +86,7 @@ function or(...barriers: Barrier[]) {
             }, 0)
     }
 
-    logger.debug('end to make barrier: %s', barrier.toString())
+    logger.info('end to make barrier: %s', barrier.toString())
 
     return barrier
 }

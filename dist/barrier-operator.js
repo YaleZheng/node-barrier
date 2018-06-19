@@ -38,7 +38,7 @@ function and(...barriers) {
     const barrier = new barrier_1.Barrier();
     barriers.forEach(sub => barrier.addSubBarrier(sub));
     barrier._desc = util_1.format('[type: %s subBarrierCount: %d]', 'and', barrier._subBarriers.length);
-    logger_1.logger.debug('start to make barrier: %s', barrier.toString());
+    logger_1.logger.info('start to make barrier: %s', barrier.toString());
     barrier._isBlockFunc = (counter) => {
         for (const subBarrier of barrier._subBarriers) {
             if (subBarrier.isBlock()) {
@@ -55,7 +55,7 @@ function and(...barriers) {
             return Math.max(pv, cv.computeBlockTimeInMills());
         }, 0);
     };
-    logger_1.logger.debug('end to make barrier: %s', barrier.toString());
+    logger_1.logger.info('end to make barrier: %s', barrier.toString());
     return barrier;
 }
 exports.and = and;
@@ -68,7 +68,7 @@ function or(...barriers) {
     const barrier = new barrier_1.Barrier();
     barriers.forEach(sub => barrier.addSubBarrier(sub));
     barrier._desc = util_1.format('[type: %s subBarrierCount: %d]', 'or', barrier._subBarriers.length);
-    logger_1.logger.debug('start to make barrier: %s', barrier.toString());
+    logger_1.logger.info('start to make barrier: %s', barrier.toString());
     barrier._isBlockFunc = (counter) => {
         for (const subBarrier of barrier._subBarriers) {
             if (subBarrier.isBlock() == false) {
@@ -85,7 +85,7 @@ function or(...barriers) {
             return Math.max(pv, cv.computeBlockTimeInMills());
         }, 0);
     };
-    logger_1.logger.debug('end to make barrier: %s', barrier.toString());
+    logger_1.logger.info('end to make barrier: %s', barrier.toString());
     return barrier;
 }
 exports.or = or;

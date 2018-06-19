@@ -20,7 +20,7 @@ function makeBarrierInterval(opt: BarrierIntervalOption) {
     const barrier = new Barrier()
     barrier._desc = format('[type: %s, cleanIntervalInMills: %d maxCount: %d]', 'simple', opt.cleanIntervalInMills, opt.maxCount)
 
-    logger.debug('start to make barrier: %s', barrier.toString())
+    logger.info('start to make barrier: %s', barrier.toString())
 
     const lastCleanTimeHolder = [new Date().getTime()]
     barrier.addTimer(setInterval(() => {
@@ -39,7 +39,7 @@ function makeBarrierInterval(opt: BarrierIntervalOption) {
         return counter.getCount() >= opt.maxCount
     }
 
-    logger.debug('end to make barrier: %s', barrier.toString())
+    logger.info('end to make barrier: %s', barrier.toString())
     return barrier
 }
 

@@ -17,7 +17,7 @@ function makeBarrierInterval(opt) {
     }
     const barrier = new barrier_1.Barrier();
     barrier._desc = util_1.format('[type: %s, cleanIntervalInMills: %d maxCount: %d]', 'simple', opt.cleanIntervalInMills, opt.maxCount);
-    logger_1.logger.debug('start to make barrier: %s', barrier.toString());
+    logger_1.logger.info('start to make barrier: %s', barrier.toString());
     const lastCleanTimeHolder = [new Date().getTime()];
     barrier.addTimer(setInterval(() => {
         barrier._counter.zero();
@@ -32,7 +32,7 @@ function makeBarrierInterval(opt) {
     barrier._isBlockFunc = (counter) => {
         return counter.getCount() >= opt.maxCount;
     };
-    logger_1.logger.debug('end to make barrier: %s', barrier.toString());
+    logger_1.logger.info('end to make barrier: %s', barrier.toString());
     return barrier;
 }
 exports.makeBarrierInterval = makeBarrierInterval;
